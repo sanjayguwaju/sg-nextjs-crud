@@ -31,7 +31,6 @@ export async function DELETE(request) {
             {status:400}
         );
     }
-    console.log(id);
     await connectMongoDB();
     await Topic.findByIdAndDelete(id);
     return NextResponse.json(
