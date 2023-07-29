@@ -15,3 +15,18 @@ export async function PUT(request,{params}) {
     await Topic.findByIdAndUpdate(id,{title, description});
     return NextResponse.json({message: "Topic updated successfully"},{status:200});
 }
+
+
+export async function GET(request,{params}) {
+    const {id} = params;
+    if (!id) {
+        return NextResponse.json(
+            {message: "Invalid request"},
+            {status:400}
+        );
+    }
+    await connectMongoDB();
+    const topic = await Topic.findById({_id:id});
+    return NextResponse.json({topic},{message: "Topic found successfully"},{status:200});
+}
+
